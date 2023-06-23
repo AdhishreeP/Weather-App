@@ -1,0 +1,46 @@
+a:hover{
+    color: white !important;
+    background-color: #6c757d !important;
+}
+
+.borderclass{
+  padding: 10px;
+  border-bottom: 3px solid #6c757d;
+}
+h1, h2, h3{
+  font-family: 'Caladea', serif;
+}
+@media only screen and (max-width: 480px){
+   html, body{
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+}
+
+/* body{
+  overflow-x: hidden;
+} */
+
+li{
+    padding-bottom: 10px;
+    }
+
+.div1{
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+.design:hover{
+    color: black !important;
+    background-color: white !important;
+}
+
+.align-img-center{
+  margin: auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
