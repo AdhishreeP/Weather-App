@@ -1,315 +1,618 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
+
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Weather App</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-            crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Adhishree - Developer Portfolio</title>
+
+        <!-- FAVICON -->
+        <link rel="icon" type="image/png" href="images/favicon.png">
+
+        <!-- Bootstrap 5 CDN Links -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <!-- Custom File's Link -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive-style.css">
+
     </head>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4 mt-1">
-            <div class="container-fluid">
-                <a class="navbar-brand ms-4 me-4" href="#">Weather App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item ms-3 me-1">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item ms-1 me-1">
-                            <a class="nav-link" href="#">About this app</a>
-                        </li>
-                        <li class="nav-item ms-1 me-1 dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Select City
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" id="city1">Delhi</a></li>
-                                <li><a class="dropdown-item" href="#" id="city2">Seattle</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#" id="city3">Mumbai</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item ms-1 me-1">
-                            <a class="nav-link" href="#">Usage Guide</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input id="city" class="form-control me-2" type="search" placeholder="Search City" aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit" id="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-        <div class="container mt-4 mb-4" data-aos="fade-right" data-aos-duration="4000">
-            <h1 class="my-4 text-center borderclass">Weather for <span id="cityName"></span></h1>
-            <main>
-                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm">
-                            <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal">Temperatures</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1 class="card-title pricing-card-title"><small class="text-muted">°celcius</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <h4>
-                                    <li>Temperature is <span id="temp"></span></li>
-                                    <li>Minimum Temperature is <span id="min_temp"></span></li>
-                                    <li>Maximum Temperature is <span id="max_temp"></span></li>
-                                </h4>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm">
-                            <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal">Humidity</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1 class="card-title pricing-card-title"><small class="text-muted">%rh</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <h4>
-                                    <li>Cloud PCT is <span id="cloud_pct"></span></li>
-                                    <li>Feels like <span id="feels_like"></span></li>
-                                    <li>Humidity is <span id="humidity"></span></li>
-                                </h4>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm">
-                            <div class="card-header py-3">
-                                <h4 class="my-0 fw-normal">Wind and Sun</h4>
-                            </div>
-                            <div class="card-body">
-                                <h1 class="card-title pricing-card-title"><small class="text-muted">km/s</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <h4>
-                                    <li>Wind Speed is <span id="wind_speed"></span></li>
-                                    <!-- <li>Wind Degrees is <span id="wind_degrees"></span></li> -->
-                                    <li>Sunrise Time is <span id="sunrise"></span></li>
-                                    <li>Sunset Time is <span id="sunset"></span></li>
-                                </h4>
-                                </ul>
-                            </div>
-                        </div>
+
+    <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="75">
+        <!-- Website loader section  -->
+        <div id="loader"></div>
+        <!-- Website loader section end -->
+        <!-- Navbar section -->
+        <header class="header_wrapper">
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img decoding="async" src="images/logo.png"
+                            class="img-fluid" alt="logo">
+                    </a>
+                    <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <i class="fas fa-stream navbar-toggler-icon"></i>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end"
+                        id="navbarNav">
+                        <ul class="navbar-nav menu-navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                    href="#home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#services">Skills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#certifications">Certifications</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#portfolio">Projects</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contact">Contact</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </main>
-        </div>
-        <h2 class="display-6 text-center mb-4">Weather of other common cities</h2>
-        <div class="container mt-4 mb-4" data-aos="fade-left" data-aos-duration="3000">
-            <div class="table-responsive">
-                <table class="table table-striped text-center justify-content-center">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Cities</th>
-                            <th scope="col">Cloud pct</th>
-                            <th scope="col">Feels like</th>
-                            <th scope="col">Humidity</th>
-                            <th scope="col">Max temp</th>
-                            <th scope="col">Min temp</th>
-                            <th scope="col">Sunrise</th>
-                            <th scope="col">Sunset</th>
-                            <th scope="col">Temp</th>
-                            <th scope="col">Wind degrees</th>
-                            <th scope="col">Wind speed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="text-start">Shanghai</th>
-                            <td id="cloud_pct_shanghai"></td>
-                            <td id="feels_like_shanghai"></td>
-                            <td id="humidity_shanghai"></td>
-                            <td id="max_temp_shanghai"></td>
-                            <td id="min_temp_shanghai"></td>
-                            <td id="sunrise_shanghai"></td>
-                            <td id="sunset_shanghai"></td>
-                            <td id="temp_shanghai"></td>
-                            <td id="wind_degrees_shanghai"></td>
-                            <td id="wind_speed_shanghai"></td>
-                        </tr>
-                        <th scope="row" class="text-start">Boston</th>
-                        <td id="cloud_pct_boston"></td>
-                        <td id="feels_like_boston"></td>
-                        <td id="humidity_boston"></td>
-                        <td id="max_temp_boston"></td>
-                        <td id="min_temp_boston"></td>
-                        <td id="sunrise_boston"></td>
-                        <td id="sunset_boston"></td>
-                        <td id="temp_boston"></td>
-                        <td id="wind_degrees_boston"></td>
-                        <td id="wind_speed_boston"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Lucknow</th>
-                            <td id="cloud_pct_lucknow"></td>
-                            <td id="feels_like_lucknow"></td>
-                            <td id="humidity_lucknow"></td>
-                            <td id="max_temp_lucknow"></td>
-                            <td id="min_temp_lucknow"></td>
-                            <td id="sunrise_lucknow"></td>
-                            <td id="sunset_lucknow"></td>
-                            <td id="temp_lucknow"></td>
-                            <td id="wind_degrees_lucknow"></td>
-                            <td id="wind_speed_lucknow"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Mumbai</th>
-                            <td id="cloud_pct_mumbai"></td>
-                            <td id="feels_like_mumbai"></td>
-                            <td id="humidity_mumbai"></td>
-                            <td id="max_temp_mumbai"></td>
-                            <td id="min_temp_mumbai"></td>
-                            <td id="sunrise_mumbai"></td>
-                            <td id="sunset_mumbai"></td>
-                            <td id="temp_mumbai"></td>
-                            <td id="wind_degrees_mumbai"></td>
-                            <td id="wind_speed_mumbai"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Kolkata</th>
-                            <td id="cloud_pct_kolkata"></td>
-                            <td id="feels_like_kolkata"></td>
-                            <td id="humidity_kolkata"></td>
-                            <td id="max_temp_kolkata"></td>
-                            <td id="min_temp_kolkata"></td>
-                            <td id="sunrise_kolkata"></td>
-                            <td id="sunset_kolkata"></td>
-                            <td id="temp_kolkata"></td>
-                            <td id="wind_degrees_kolkata"></td>
-                            <td id="wind_speed_kolkata"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Hyderabad</th>
-                            <td id="cloud_pct_hyderabad"></td>
-                            <td id="feels_like_hyderabad"></td>
-                            <td id="humidity_hyderabad"></td>
-                            <td id="max_temp_hyderabad"></td>
-                            <td id="min_temp_hyderabad"></td>
-                            <td id="sunrise_hyderabad"></td>
-                            <td id="sunset_hyderabad"></td>
-                            <td id="temp_hyderabad"></td>
-                            <td id="wind_degrees_hyderabad"></td>
-                            <td id="wind_speed_hyderabad"></td>
-                        </tr>
-                    </tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        </main>
-        </div>
-        <div class="container mt-4 mb-4 div1" data-aos="fade-up-right" data-aos-duration="3000">
-            <h1 class="mb-4 borderclass" style="color: black; text-align: center;">About This App</h1>
-            <ul class="list-unstyled" style="font-size: 20px">
-                <li>⇰ This app is built over the Rapid API's Weather by API-Ninjas API, which supports various cities in and outside India.</li>
-                <li>⇰ It provides various facilities like searching for a particular city, viewing temperature of some common cities, and a default city weather</li>
-            </ul>
-        </div>
-        <div class="container div1 mt-4 mb-4" data-aos="fade-up-left">
-            <h1 class="mb-4 borderclass" style="color: black; text-align: center;">Features of this app</h1>
-            <div class="row d-flex">
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <img src="images/search.png" alt="Search" class="card-img-top d-flex align-items-center justify-content-center">
-                        <div class="card-body">
-                            <h2 class="card-title">Search your city</h2>
-                            <p class="card-text">Seamlessly search your city from among the large number of cities</p>
-                            <div class="text-center">
-                            <a href="#" class="btn btn-secondary design">Go to search</a>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100">
-                        <img src="images/common.png" alt="Common" class="card-img-top">
-                        <div class="card-body">
-                            <h2 class="card-title">Common cities</h2>
-                            <p class="card-text">Easily view temperature details of some most common cities around India</p>
-                            <div class="text-center">
-                            <a href="#common" class="btn btn-secondary design">View Cities</a>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100" >
-                        <img src="images/other.png" alt="other" class="card-img-top">
-                        <div class="card-body">
-                            <h2 class="card-title">Other Cities</h2>
-                            <p class="card-text">Easily view temperature details by selecting from a variety of city options</p>
-                            <div class="text-center"></div>
-                            <a href="#" class="btn btn-secondary design">Go to other Cities</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <section id="usage" class="py-5">
-            <div class="container div1" data-aos="fade-up-right" data-aos-duration="3000">
-                <div class="row">
-                    <h1 class="mb-4 borderclass" style="color: black; text-align: center;">Usage Guide</h1>
-                    <div class="col-lg-6">
-                        <h2 class="lead">⇰ Follow these steps to use the Weather App:</h2>
-                        <ol style="font-size: 20px">
-                            <li>Open the Weather App on the browser.</li>
-                            <li>Enter the name of a city in the search bar.</li>
-                            <li>Click the "Search" button or press Enter.</li>
-                            <li>The app will display the weather information for the specified city.</li>
-                            <li>Explore additional features and options provided by the app ike.</li>
-                        </ol>
-                    </div>
-                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
-                        <img src="images/weather.png" alt="Weather App Usage" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="bg-secondary py-5" data-aos="fade-up-left" data-aos-duration="1000">
+            </nav>
+        </header>
+        <!-- Navbar section exit -->
+
+        <!-- Banner section -->
+        <section id="home" class="banner_wrapper">
             <div class="container">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-12 text-center">
-                        <div class="footer-logo mb-3 mb-md-0">
-                            <img decoding="async" src="images/logo.png" alt="Logo">
+                <div class="row">
+                    <div class="col-lg-7 order-lg-1 order-2 banner-content">
+                        <h2 class="text-uppercase position-relative">Hell0</h2>
+                        <h1 class="text-uppercase">I am Adhishree</h1>
+                        <h5 class="text-uppercase">
+                            <span id="element"></span>
+                        </h5>
+                        <div class="mt-5">
+                            <!-- <a class="main-btn primary-btn" href="#">Hire Me</a> -->
+                            <a class="main-btn secondary-btn ms-4"
+                                href="images/Adhishree Patki Resume.pdf"
+                                >Get CV</a>
                         </div>
                     </div>
-                    <div class="col-lg-8 col-sm-12">
-                        <p class="footer-text text-center my-2" style="color: white;">Copyright
-                            &copy; 2023 All rights reserved | Made by <a href="#" style="text-decoration: none; color: white;">Weather Corporation and API Ninjas©</a>
-                        </p>
+                    <div class="col-lg-5 order-lg-2 order-1">
+                        <div class="top-right-img">
+                            <img decoding="async" src="images/me.png"
+                                class="img-fluid">
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-            crossorigin="anonymous"></script>
-        <script src="script.js"></script>
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-        <script>
-            AOS.init();
-        </script>
-    </body>
-</html>
+        <!-- Banner section exit -->
+
+        <!-- About section -->
+        <section id="about" class="about_wrapper">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 mb-4 mb-lg-0">
+                        <img decoding="async" src="images/me2.png"
+                            class="img-fluid" alt="About Us">
+                    </div>
+                    <div class="col-lg-5 mb-4 mb-lg-0">
+                        <h3>About <br>Me</h3>
+                        <h4 class="mb-4" style="color: black; text-align:
+                            center;">Web developer & Python developer</h4>
+
+                        <ul class="list-unstyled" style="font-size: 20px">
+                            <li>✔ Well known to Core Computer Science subjects</li>
+                            <li>✔ Created, developed and managed web development
+                                projects with python and flask.</li>
+                            <li>✔ Experinced in MYSQL</li>
+                        </ul>
+
+                        <hr
+                            style="background-color: rgba(104, 129, 241, 0.87);;
+                            height: 3px;">
+
+                        <ul class="list-unstyled" style="font-size: 20px">
+                            <li>✔ Date of Birth : 04/07/2002</li>
+                            <li>✔ Phone : +917887619230</li>
+                            <li>✔ Email : adhishreepatki472@gmail.com</li>
+                            <li>✔ Address : Aurgangabad, Maharashtra</li>
+                        </ul>
+                        <a href="images/Adhishree Patki Resume.pdf" 
+                            class="main-btn primary-btn mt-4"> CV</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About section exit -->
+
+        <!-- Skills section -->
+        <section id="services" class="services_wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 text-center mb-5">
+                        <h2>SKILLS</h2>
+                        <p>Being a computer science student, I'm well versed in
+                            core computer science subjects <br
+                                class="d-none d-lg-block">
+                            as well as programming languages and frameworks</p>
+                    </div>
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-md-5 mb-4">
+                            <div class="skill-container">
+                                <div class="skill-fill" style="width: 80%;"></div>
+                                <div class="skill-percentage">80%</div>
+                            </div>
+                            <h5 class="mt-1">C</h5>
+                        </div>
+                        <div class="col-md-5 mb-4">
+                            <div class="skill-container">
+                                <div class="skill-fill" style="width: 80%;"></div>
+                                <div class="skill-percentage">80%</div>
+                            </div>
+                            <h5 class="mt-1">C++</h5>
+                        </div>
+                    </div>
+                    <div class="row mt-1 justify-content-center">
+                        <div class="col-md-5 mb-4">
+                            <div class="skill-container">
+                                <div class="skill-fill" style="width: 90%;"></div>
+                                <div class="skill-percentage">90%</div>
+                            </div>
+                            <h5 class="mt-1">Core & Advanced JAVA</h5>
+                        </div>
+                        <div class="col-md-5 mb-4">
+                            <div class="skill-container">
+                                <div class="skill-fill" style="width: 70%;"></div>
+                                <div class="skill-percentage">70%</div>
+                            </div>
+                            <h5 class="mt-1">Python</h5>
+                        </div>
+                    </div>
+
+                    <div class="row mt-1 justify-content-center">
+                        <div class="col-md-5 mb-4">
+                            <div class="skill-container">
+                                <div class="skill-fill" style="width: 90%;"></div>
+                                <div class="skill-percentage">90%</div>
+                            </div>
+                            <h5 class="mt-1">SQL</h5>
+                        </div>
+                        <div class="col-md-5 mb-4">
+                            <div class="skill-container">
+                                <div class="skill-fill" style="width: 60%;"></div>
+                                <div class="skill-percentage">60%</div>
+                            </div>
+                            <h5 class="mt-1">Flask</h5>
+                        </div>
+                    </div>
+
+                    <div class="row mt-1 justify-content-center">
+                        <div class="col-md-5 mb-4">
+                            <div class="skill-container">
+                                <div class="skill-fill" style="width: 90%;"></div>
+                                <div class="skill-percentage">90%</div>
+                            </div>
+                            <h5 class="mt-1">Core Subjects</h5>
+                        </div>
+                        <div class="col-md-5 mb-4">
+                        </div>
+
+                    </div>
+                </section>
+                <!--Skills section exit -->
+
+                <!-- Certifications Section -->
+    <section id="certifications" class="portfolio_wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-left mb-md-5 mb-2">
+                    <h2>Certifications<br>and Achievements</h2>
+                </div>
+            </div>
+            <div class="row">
+                <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-one-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-one" type="button" role="tab" aria-controls="pills-one"
+                            aria-selected="true">Achievements</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-two-tab" data-bs-toggle="pill" data-bs-target="#pills-two"
+                            type="button" role="tab" aria-controls="pills-two" aria-selected="true">Certifications</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-one" role="tabpanel"
+                        aria-labelledby="pills-one-tab">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img text-center">
+                                    <img decoding="async" src="./images/certifications/sql.png" class="img-fluid">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4 text-center">SQL <br>  (Basic)</h5>
+                                <p class="text-center">by HackerRank <br>
+                                    <a href="https://drive.google.com/file/d/1IENAodwGfscYlwCiJCguyWAg5enEN5nC/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a></p>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img text-center">
+                                    <img decoding="async" src="./images/certifications/sql.png" class="img-fluid">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4 text-center">SQL <br> (Intermediate)</h5>
+                                <p class="text-center">by HackerRank <br>
+                                    <a href="https://drive.google.com/file/d/1NPRmxiksd8Y7rwfzofEdNsdNyAVeOoE7/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a></p>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img text-center">
+                                    <img decoding="async" src="./images/certifications/sql.png" class="img-fluid">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4 text-center">SQL <br> (Advanced)</h5>
+                                <p class="text-center">by HackerRank <br>
+                                    <a href="https://drive.google.com/file/d/1a86wbSE9lMUTvjwivKMz4sspjuG7MOxL/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img text-center">
+                                    <img decoding="async" src="./images/certifications/ps1.png" class="img-fluid ">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4 text-center">Problem Solving <br> (Basic)</h5>
+                                <p class="text-center">by HackerRank<br>
+                                    <a href="https://drive.google.com/file/d/1lwzKD8rX_Cy1xsFAq7thaYGUCFOvPWQK/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a>
+                                </p>
+                                
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img text-center">
+                                    <img decoding="async" src="./images/certifications/ps1.png" class="img-fluid ">
+                                    <div class=""></div>
+                                </div>
+                                <h5 class="mb-0 mt-4 text-center">Problem Solving <br> (Intermidiate)</h5>
+                                <p class="text-center">by HackerRank <br>
+                                    <a href="https://drive.google.com/file/d/1KcA4KFRcVKlU0gBENEyUceMWq1aMWp3_/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a></p>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img text-center">
+                                    <img decoding="async" src="./images/certifications/py.png" class="img-fluid">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4 text-center">Python <br> (Basic)</h5>
+                                <p class="text-center">by HackerRank <br>
+                                    <a href="https://drive.google.com/file/d/12D6KltLttD3GWTmvidPJl5luZf4rDtEf/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img">
+                                    <img decoding="async" src="./images/certifications/nosql.png" class="img-fluid w-100">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4">NoSQL</h5>
+                                <p>Certified NoSQL course by Great Learning Academy
+                                    <br>
+                                    <a href="https://drive.google.com/file/d/1p9Fz-qxMowiexEdQnjHXNg4mQeZ3GCZ7/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a>
+                                </p>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img">
+                                    <img decoding="async" src="./images/certifications/data.png" class="img-fluid w-100">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4">Data Visualization</h5>
+                                <p>A certified hands-on course on Data Visualization by Kaggle<br>
+                                    <a href="https://drive.google.com/file/d/1f0jYFRoDQBpZISOv3mdwZqpNmdhGGprg/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a></p>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="portfolio-img">
+                                    <img decoding="async" src="./images/certifications/ml.png" class="img-fluid w-100">
+                                    <div class=""> </div>
+                                </div>
+                                <h5 class="mb-0 mt-4">Machine Learning</h5>
+                                <p>Certified Machine Learning course by Great Learning Academy <br>
+                                    <a href="https://drive.google.com/file/d/1kWMGcB77lfZ8t1S0-sycDvIimWe77eZb/view?usp=drive_link"
+                                            class="main-btn primary-btn mt-4">View
+                                            Certificate </a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- certifications Section exit -->
+
+                
+                <!-- Project Section -->
+                <section id="portfolio" class="portfolio_wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 text-left mb-md-5 mb-2">
+                                <h2>Projects <br> And Developments</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ul class="nav nav-pills mb-4" id="pills-tab"
+                                role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active"
+                                        id="pills-one-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-one"
+                                        type="button"
+                                        role="tab" aria-controls="pills-one"
+                                        aria-selected="true">Completed</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link"
+                                        id="pills-three-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-three"
+                                        type="button"
+                                        role="tab" aria-controls="pills-three"
+                                        aria-selected="true">Upcoming</button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active"
+                                    id="pills-one"
+                                    role="tabpanel"
+                                    aria-labelledby="pills-one-tab">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6">
+
+                                            <div class="portfolio-img">
+                                                <a
+                                                    href="http://adhishree472.pythonanywhere.com/">
+                                                    <img decoding="async"
+                                                        src="./images/portfolio/calculator.png"
+                                                        class="img-fluid w-100"
+                                                        href="www.facebook.com">
+                                                    <div class="overlay"> <i
+                                                            class="fas
+                                                        fa-plus"></i></div>
+                                                </a>
+                                            </div>
+                                            <h5 class="mb-0 mt-4">CGPA and SGPA
+                                                calculator</h5>
+                                            <p>A simple calculator to help
+                                                students <br>efficiently
+                                                calculate their CGPA and SGPA
+                                                <br>for all semesters</p>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="portfolio-img">
+                                                <a href>
+                                                    <img decoding="async"
+                                                        src="./images/portfolio/vehicle.png"
+                                                        class="img-fluid w-100">
+                                                    <div class="overlay"> <i
+                                                            class="fas
+                                                        fa-plus"></i></div>
+                                                </a>
+                                            </div>
+                                            <h5 class="mb-0 mt-4">Vehicle Hub</h5>
+                                            <p>A Web based application that uses
+                                                computer vision<br> for vehicle
+                                                counting, classification, number
+                                                plate detection and owner
+                                                information</p>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="portfolio-img">
+                                                <a
+                                                    href="https://github.com/AdhishreeP/CanteenFoodOrderAndMngt">
+                                                    <img decoding="async"
+                                                        src="./images/portfolio/canteen.png"
+                                                        class="img-fluid w-100">
+                                                    <div class="overlay"> <i
+                                                            class="fas fa-plus"></i></div>
+                                                </a>
+                                            </div>
+                                            <h5 class="mb-0 mt-4">Canteen Food
+                                                Ordering and Management System</h5>
+                                            <p>A web based python application
+                                                for college students to order
+                                                food beforehand and maintain
+                                                their records</p>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+
+                                            <div class="portfolio-img">
+                                                <a
+                                                    href="https://adhishreep.github.io/Weather-App/">
+                                                    <img decoding="async"
+                                                        src="./images/portfolio/weather.png"
+                                                        class="img-fluid w-100">
+                                                    <div class="overlay"> <i
+                                                            class="fas
+                                                        fa-plus"></i></div>
+                                                </a>
+                                            </div>
+                                            <h5 class="mb-0 mt-4">Weather
+                                                Information App</h5>
+                                            <p>An API based app that extracts
+                                                the temperature information of
+                                                different cities and diplays it
+                                                based on places</p>
+                                        </div>
+
+                                        <div class="col-lg-4 col-sm-6">
+
+                                            <div class="portfolio-img">
+                                                <a
+                                                    href="https://adhishreep.github.io/Google-Search-Clone/">
+                                                    <img decoding="async"
+                                                        src="./images/portfolio/google.png"
+                                                        class="img-fluid w-100">
+                                                    <div class="overlay"> <i
+                                                            class="fas
+                                                        fa-plus"></i></div>
+                                                </a>
+                                            </div>
+                                            <h5 class="mb-0 mt-4">Google Search
+                                                Clone</h5>
+                                            <p>A simple google search clone that
+                                                rakes as input the search
+                                                keywords and allows to search
+                                                the ggogle for it. It also adds
+                                                the ability of adding shortcuts
+                                                to the homepage</p>
+                                        </div>
+
+                                        <div class="col-lg-4 col-sm-6">
+
+                                            <div class="portfolio-img">
+                                                <a
+                                                    href="https://github.com/AdhishreeP/User-Management-API">
+                                                    <img decoding="async"
+                                                        src="./images/portfolio/api.png"
+                                                        class="img-fluid w-100">
+                                                    <div class="overlay"> <i
+                                                            class="fas
+                                                        fa-plus"></i></div>
+                                                </a>
+                                            </div>
+                                            <h5 class="mb-0 mt-4">User
+                                                Information API</h5>
+                                            <p>A simple API built using Python,
+                                                Flask and MySQL which provides
+                                                the ability to create user and
+                                                update, delete and veiw user
+                                                information</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- projects Section exit -->
+
+                <!-- Footer section -->
+                <section id="contact" class="footer_wrapper mt-3 mt-md-0">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 newsletter text-center px-4">
+                                <div>
+                                    <h3 class="text-white">Get in touch</h3>
+                                    <p class="text-white">Always feel free to
+                                        contact me via email.</p>
+
+                                    <form class="row g-3 justify-content-center
+                                        mt-4">
+                                        <div class="col col-sm-6 col-lg-4">
+                                            <input type="email"
+                                                class="form-control"
+                                                placeholder="Enter your message here">
+                                        </div>
+                                        <div class="col col-auto">
+                                            <form
+                                                action="mailto:adhishreepatki472@gmail.com"
+                                                method="GET">
+                                                <input type="submit"
+                                                    class="main-btn secondary-btn border-white mb-3"
+                                                    value="Send">
+                                                <!-- <button type="submit" class="main-btn secondary-btn border-white mb-3">Send</button> -->
+                                            </form>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-5">
+                        <div class="row align-items-center
+                            justify-content-center">
+                            <div class="col-12 text-center">
+                                <div class="footer-logo mb-3 mb-md-0">
+                                    <img decoding="async" src="images/logo.png">
+                                </div>
+                                <div class="my-4 social-icons">
+                                    <h5>Follow Me</h5>
+                                    <ul class="list-unstyled d-flex
+                                        justify-content-center
+                                        align-items-center">
+                                        <li><a href><i
+                                                    class="fab                                                    fa-instagram"
+                                                    style="color:
+                                                    #E4405F;"></i></a></li>
+                                        <li><a
+                                                href="https://github.com/AdhishreeP"><i
+                                                    class="fab fa-github"
+                                                    style="color: #171515;"></i></a></li>
+                                        <li><a href="#"><i class="fab
+                                                    fa-facebook" style="color:
+                                                    #3b5998;"></i></i></a></li>
+                                    <li><a
+                                            href="https://www.linkedin.com/in/adhishree-patki-bbb670265/"><i
+                                                class="fab fa-linkedin"
+                                                style="color: #0A66C2;"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-sm-12">
+                            <p class="footer-text text-center my-2">Copyright ©
+                                2023
+                                All rights reserved | This is made with <i
+                                    class="far fa-heart"></i> by <a
+                                    href="#">Adhishree</a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer section exit -->
+
+            <!-- Bootstrap 5 JS CDN Links -->
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+            <script
+                src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+            <!-- Custom Js Link -->
+            <script src="js/main.js"></script>
+            <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+            <script>
+            var typed = new Typed('#element', {
+              strings: ['Web  Developer and Python Developer'],
+              typeSpeed: 50,
+            });
+          </script>
+        </body>
+
+    </html>
